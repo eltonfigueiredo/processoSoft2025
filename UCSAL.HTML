@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização dos Dados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .header {
+            background-color: #000080; /* Azul Marinho */
+            color: #ffffff;
+        }
+        .table-header {
+            background-color: #4b5563;
+            color: #e5e7eb;
+        }
+        .table-row:nth-child(odd) {
+            background-color: #e5e7eb;
+        }
+        .table-row:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        /* Tons de verde para as classificações */
+        .row-green-1 {
+            background-color: #d1fae5;
+        }
+        .row-green-2 {
+            background-color: #a7f3d0;
+        }
+        .row-green-3 {
+            background-color: #6ee7b7;
+        }
+        img.team-logo {
+            width: 14rem; 
+            height: 10rem; 
+            object-fit: cover;
+            /* Adicionado para melhor visualização em dispositivos móveis */
+            min-width: 5rem; 
+            min-height: 5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="container mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+        <header class="header text-center py-8 rounded-t-xl">
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight">UCSAL UNIVERSIDADE CATOLICA DE SALVADOR</h1>
+            <h2 class="text-sm sm:text-lg font-medium mt-2">ETAPA I - CAMPEONATO DE PROCESSO DE SOFTWARE 2025.2</h2>
+        </header>
+
+        <main class="p-6 sm:p-8">
+            <div class="overflow-x-auto rounded-lg shadow-inner">
+                <table class="w-full text-left whitespace-nowrap">
+                    <thead class="table-header uppercase text-sm">
+                        <tr>
+                            <th scope="col" class="py-3 px-4 rounded-tl-lg text-center">EMPRESA</th>
+                            <th scope="col" class="py-3 px-4 text-center">Turma</th>
+                            <th scope="col" class="py-3 px-4 rounded-tr-lg text-center">Classificação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As linhas da tabela serão geradas aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer class="p-6 text-center text-gray-500 text-sm">
+            <p>Os dados representam a colocação final dos Scrum Masters de cada turma.</p>
+        </footer>
+    </div>
+
+    <script>
+        const data = [
+            { turma: 'T4', nome: 'Daniel Campos Pinto Santos', colocacao: 3.0, imageUrl: 'codeBridge.jpg' },
+            { turma: 'T5', nome: 'Hugo Carlos Barbosa Brandão', colocacao: 3.6, imageUrl: 'nextLabs.jpg' },
+            { turma: 'T2', nome: 'RIAN MUNIZ MENDES NOVAIS', colocacao: 2.8, imageUrl: 'blueCode.jpg' },
+            { turma: 'T2', nome: 'CARLOS HENRIQUE MADUREIRA SANTOS', colocacao: 3.5, imageUrl: 'nextLevel.jpg' },
+            { turma: 'T5', nome: 'ENZO GABRIEL MOURA ALMADA DOS SANTOS', colocacao: 2.9, imageUrl: 'gremtech.jpg' },
+            { turma: 'T5', nome: 'LUIS HENRIQUE LOURENÇO DAS MERCÊS', colocacao: 3.7, imageUrl: 'ssax.jpg' },
+            { turma: 'T4', nome: 'FERNANDO SANTOS BARBOSA', colocacao: 2.6, imageUrl: 'bitWorks.jpg' },
+            { turma: 'T2', nome: 'LUCAS CARDOSO', colocacao: 3.8, imageUrl: 'nexusByte.jpg' },
+            { turma: 'T2', nome: 'DANTTON LAVIGNE', colocacao: 4.0, imageUrl: 'chronus.jpg' },
+            { turma: 'T5', nome: 'VICTOR GUIMARÃES SILVA', colocacao: 3.7, imageUrl: 'kortechs.jpg' },
+            { turma: 'T2', nome: 'MIGUEL SANTOS', colocacao: 3.5, imageUrl: 'inforHouse.jpg' },
+            { turma: 'T5', nome: 'MOYSES WAHRHAFTIG', colocacao: 2.6, imageUrl: 'nextCode.jpg' },
+            { turma: 'T2', nome: 'GUSTAVO SANTOS DE SOUZA', colocacao: 3.4, imageUrl: 'vmsTech.jpg' },
+            { turma: 'T2', nome: 'JOÃO VÍTOR CEZAR BOUCAULT', colocacao: 3.6, imageUrl: 'wise.jpg' },
+            { turma: 'T4', nome: 'João Gabriel Galindo', colocacao: 3.9, imageUrl: 'help.jpg' },
+            { turma: 'T2', nome: 'Guilherme Oliveira Silva Santos', colocacao: 3.4, imageUrl: 'tekNova.jpg' },
+            { turma: 'T4', nome: 'Rubens de Oliveira Neiva Filho', colocacao: 3.4, imageUrl: 'startCode.jpg' },
+            { turma: 'T4', nome: 'Daniel Guilherme Nascimento Deveza', colocacao: 3.5, imageUrl: 'nexaTech.jpg' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.querySelector('tbody');
+            
+            // Ordem decrescente da colocação
+            data.sort((a, b) => b.colocacao - a.colocacao);
+            
+            data.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.classList.add('table-row', 'text-gray-700', 'transition-colors', 'duration-200', 'hover:bg-gray-300');
+
+                // Lógica para aplicar cores e o tooltip
+                if (item.colocacao >= 3.5 && item.colocacao <= 4.0) {
+                    tr.classList.add('row-green-1');
+                    // Adiciona o atributo 'title' para o efeito de dica ao passar o mouse
+                    tr.setAttribute('title', 'Classificada'); 
+                } else if (item.colocacao > 3.0 && item.colocacao < 3.5) {
+                    tr.classList.add('row-green-2');
+                } else if (item.colocacao < 3.0) {
+                    tr.classList.add('row-green-3');
+                }
+                
+                tr.innerHTML = `
+                   <td class="team-logo">
+                        <img 
+                            src="${item.imageUrl}" 
+                            alt="Logo da Equipe de ${item.nome}" 
+                            class="rounded-lg mx-auto shadow-md team-logo" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/150x150/CCCCCC/000000?text=Error';"
+                        />
+                    </td>  
+                    <td class="py-3 px-4 text-center">${item.turma}</td>
+                    <td class="py-3 px-4 font-bold text-lg text-center">${item.colocacao.toFixed(1)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
